@@ -4,7 +4,6 @@ Follow guide [here](https://moaw.dev/workshop/?src=gh%3Apauldotyu%2Fmoaw%2Flearn
 
 # Pre-requisites
 
-* Get an External subscription from MCAPS with your own tenant
 * Install Resource Providers
 * Get whitelisted for Azure OpenAI (gpt-3.5-turbo)
 * Get vCPU quota for NCASv3_T4 (minimum 4 vCPUs)
