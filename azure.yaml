@@ -2,7 +2,7 @@
 
 name: aks-store-demo
 metadata:
-  template: aks-store-demo@1.1.0
+  template: aks-store-demo@1.3.0
 hooks:
   preprovision:
     posix:
