@@ -146,3 +146,6 @@ playwright/.cache/
 
 # custom helm values
 custom-values.yaml
+
+# Kaito
+gpu-provisioner-values.yaml
