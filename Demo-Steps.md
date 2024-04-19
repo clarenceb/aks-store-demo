@@ -8,7 +8,6 @@ Follow guide [here](https://moaw.dev/workshop/?src=gh%3Apauldotyu%2Fmoaw%2Flearn
 * Install Resource Providers
 * Get whitelisted for Azure OpenAI (gpt-3.5-turbo)
 * Get vCPU quota for NCASv3_T4 (minimum 4 vCPUs)
-* Create an exception for MCAPS Deny Policies that prevent N-series VMs to be created (view definition for the specific policy, then create exeption - requires admin account, not your guest account)
 * Install Azure CLI
 * Install Azure Developer CLI
 * Install Helm
