@@ -122,7 +122,7 @@ inference:
     name: "falcon-7b-instruct"
 EOF
 
-# Takes ~10 mins to create thr GPU node
+# Takes ~10 mins to create the GPU node
 kubectl apply -n pets -f workspaces/falcon-7b-instruct.yaml
 
 kubectl describe workspace workspace-falcon-7b-instruct -n pets
@@ -137,10 +137,13 @@ kubectl describe node aks-ws9326a2b96-97574779-vmss000000
 # Takes ~9 mins for the container to be ready (downloads the large image with the falcon-7b-instruct model)
 kubectl get pod,svc -n pets
 
+# Test the chat completion endpoint for the falcon-7b-instruct model
 kubectl run -n pets -it --rm --restart=Never curl --image=curlimages/curl 2>/dev/null -- \
     curl -sX POST http://workspace-falcon-7b-instruct/chat -H "accept: application/json" -H "Content-Type: application/json" -d "{\"prompt\":\"What is a kubernetes?\"}" \
     | jq . 2>/dev/null
 
+# Optional: Run a chainlit python chat app to use the local model (via port forwarding)
+cd chatapp/
 sudo apt update && sudo apt upgrade -y
 sudo apt install software-properties-common -y
 sudo add-apt-repository ppa:deadsnakes/ppa
@@ -159,7 +162,7 @@ python -m chainlit run app.py -w
 kubectl logs -f $(kubectl get pod -l "kaito.sh/workspace=workspace-falcon-7b-instruct" -n pets -o name) -n pets
 ```
 
-## Update aks store demo to use local model
+## Update aks store demo to use local model in AKS (falcon7b-instruct)
 
 ```sh
 kubectl delete cm ai-service-configmap -n pets
@@ -172,7 +175,7 @@ kubectl get cm ai-service-configmap -n pets -o yaml
 kubectl logs -f $(kubectl get pod -l "kaito.sh/workspace=workspace-falcon-7b-instruct" -n pets -o name) -n pets
 ```
 
-## Revert back to Azure OpenaI for AKs store demo
+## Revert back to Azure OpenaI for AKS store demo
 
 ```sh
 kubectl delete cm ai-service-configmap -n pets
