@@ -1,9 +1,12 @@
-# Demo steps
+# KAITO Demo steps
 
-Use the AKS Store Demo to demo alternate LLM usage - local inferencing instead of Azure OpenAI.
+Follow guide [here](https://moaw.dev/workshop/?src=gh%3Apauldotyu%2Fmoaw%2Flearnlive%2Fworkshops%2Fopensource-models-on-aks-with-kaito%2F&step=0)
 
-## Pre-requisites
+# Pre-requisites
 
+* Install Resource Providers
+* Get whitelisted for Azure OpenAI (gpt-3.5-turbo)
+* Get vCPU quota for NCASv3_T4 (minimum 4 vCPUs)
 * Install Azure CLI
 * Install Azure Developer CLI
 * Install Helm
@@ -13,7 +16,7 @@ Use the AKS Store Demo to demo alternate LLM usage - local inferencing instead o
 * Install vscode
 * Install Docker Desktop (optional: if you want to build your own Docker images for the sample application)
 
-## Deploy the initial app
+## Script
 
 Get the basic setup going:
 
@@ -29,23 +32,9 @@ azd up
 kubectl get service -n pets store-admin -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 kubectl get service -n pets store-frontend -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 
+az vm list-usage   --location ${AZURE_LOCATION}   --query "[? contains(localName, 'Standard NCASv3_T4')]"   -o table
+
 eval "$(azd env get-values)"
-```
-
-## Update app to use local LLM with KAITO
-
-Follow guide [here](https://moaw.dev/workshop/?src=gh%3Apauldotyu%2Fmoaw%2Flearnlive%2Fworkshops%2Fopensource-models-on-aks-with-kaito%2F&step=0)
-
-Pre-requisite steps:
-
-* Install Resource Providers
-* Get whitelisted for Azure OpenAI (gpt-3.5-turbo)
-* Get vCPU quota for NCASv3_T4 (minimum 4 GPU cores)
-
-Get the basic setup going:
-
-```sh
-az vm list-usage --location ${AZURE_LOCATION} --query "[? contains(localName, 'Standard NCASv3_T4')]" -o table
 
 export AZURE_RESOURCEGROUP_NAME=$AZURE_RESOURCE_GROUP
 az identity create   --name mi-kaitoprovisioner   --resource-group $AZURE_RESOURCEGROUP_NAME
